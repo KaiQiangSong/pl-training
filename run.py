@@ -19,8 +19,6 @@ def argLoader():
     parser.add_argument("--num_workers", type=int, default=4)
     parser.add_argument("--batch_size_per_gpu", type=int, default=1)
 
-
-
     parser.add_argument("--model", type=str, default="facebook/bart-large")
     parser.add_argument("--data_path", type=str, default="../../sumData/cnn_dailymail")
     parser.add_argument("--build_from_strach", action="store_true", help="Whether or not build dataset from strach")
@@ -33,13 +31,15 @@ def argLoader():
     parser.add_argument("--weight_decay", type=float, default=0.01)
 
     parser.add_argument("--max_epochs", type=int, default=5)
-    parser.add_argument("--train_steps", type=int, default=10000)
-    parser.add_argument("--warmup_steps", type=int, default=500)
-
+    parser.add_argument("--num_train_instances", type=int, default=287113)
+    #parser.add_argument("--train_steps", type=int, default=10000)
+    parser.add_argument("--warmup_steps", type=int, default=1795)
     parser.add_argument("--valid_per_epoch", type=int, default=5)
 
     args = parser.parse_args()
     args.pad = 1
+
+    args.train_steps = args.num_train_instances // (args.batch_sizer_per_gpu * args.n_gpus) * args.max_epochs
 
     assert args.load_from_cache != args.build_from_strach
 
@@ -47,7 +47,6 @@ def argLoader():
         os.makedirs(args.model_path)
 
     return args
-
 
 if __name__ == "__main__":
     config = argLoader()
@@ -74,7 +73,7 @@ if __name__ == "__main__":
             callbacks=[checkpoint_callback],
             terminate_on_nan=True,
             sync_batchnorm=True,
-            val_check_interval= 1.0 / config.valid_per_epoch,
+            val_check_interval=1.0 / config.valid_per_epoch,
             profiler="simple",
         )
 
