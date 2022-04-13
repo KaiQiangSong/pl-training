@@ -1,4 +1,5 @@
 import os
+import math
 import pytorch_lightning as pl
 
 from argparse import ArgumentParser
@@ -32,14 +33,14 @@ def argLoader():
 
     parser.add_argument("--max_epochs", type=int, default=5)
     parser.add_argument("--num_train_instances", type=int, default=287113)
-    #parser.add_argument("--train_steps", type=int, default=10000)
     parser.add_argument("--warmup_steps", type=int, default=1795)
     parser.add_argument("--valid_per_epoch", type=int, default=5)
 
     args = parser.parse_args()
     args.pad = 1
 
-    args.train_steps = args.num_train_instances // (args.batch_sizer_per_gpu * args.n_gpus) * args.max_epochs
+    args.train_steps = \
+        int(math.ceil(float(args.num_train_instances / (args.batch_sizer_per_gpu * args.n_gpus))) * args.max_epochs)
 
     assert args.load_from_cache != args.build_from_strach
 
