@@ -17,6 +17,8 @@ pip install deepspeed==0.6.0
 pip install fairscale==0.4.5
 # Pytorch-Lightning
 pip install pytorch-lightning==1.5.10
+# Transformers
+pip install transformers==4.18.0
 ```
 
 ## Run Script
