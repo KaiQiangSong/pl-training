@@ -83,8 +83,8 @@ class CNNDailymail(BasicDataset):
             src_sents = data_i["inputs"]
             tgt_sents = data_i["outputs"]
 
-            src_idx = self.tokenizer.tokenize(" ".join(src_sents), return_tensors="pt")
-            tgt_idx = self.tokenizer.tokenize(" ".join(tgt_sents), return_tensors="pt")
+            src_idx = self.tokenizer.encode(" ".join(src_sents), return_tensors="pt")
+            tgt_idx = self.tokenizer.encode(" ".join(tgt_sents), return_tensors="pt")
 
             if src_idx.size(-1) < 3:
                 print("Error: Input Empty")
