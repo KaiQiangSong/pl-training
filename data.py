@@ -75,13 +75,13 @@ class CNNDailymail(BasicDataset):
             self.afterload()
     
     def load_raw(self):
-        inputFile = open(join(self.path, self.split + ".json"), "r")
+        inputFile = open(join(self.path, self.split + ".jsonl"), "r")
         data = []
         for line in inputFile:
             data_i = json.loads(line)
             # List[str]
-            src_sents = data["article"]
-            tgt_sents = data["highlights"]
+            src_sents = data_i["inputs"]
+            tgt_sents = data_i["outputs"]
 
             src_idx = self.tokenizer.tokenize(" ".join(src_sents), return_tensors="pt")
             tgt_idx = self.tokenizer.tokenize(" ".join(tgt_sents), return_tensors="pt")

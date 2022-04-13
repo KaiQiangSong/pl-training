@@ -17,8 +17,9 @@ def argLoader():
     parser.add_argument("--n_gpus", type=int, default=2)
 
     parser.add_argument("--model", type=str, default="facebook/bart-large")
-    parser.add_argument("--data_path", type=str, default="../../sumData/cnn-dailymail")
+    parser.add_argument("--data_path", type=str, default="../../sumData/cnn_dailymail")
     parser.add_argument("--build_from_strach", action="store_true", help="Whether or not build dataset from strach")
+    parser.add_argument("--load_from_cache", action="store_true", help="Whether or not load from cache file")
     parser.add_argument("--model_path", type=str, default="./model")
 
 
@@ -34,6 +35,8 @@ def argLoader():
 
     args = parser.parse_args()
     args.pad = 1
+
+    assert args.load_from_cache != args.build_from_strach
 
     if not os.path.exists(args.model_path):
         os.makedirs(args.model_path)
