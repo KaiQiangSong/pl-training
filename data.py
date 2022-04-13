@@ -66,7 +66,7 @@ class CNNDailymail(BasicDataset):
     def __init__(self, name, split, config):
         super().__init__(name, split, config)
         self.tokenizer = AutoTokenizer.from_pretrained(config.model)
-        if self.build:
+        if self.build_from_strach:
             self.load_raw()
             self.save_cache()
             self.afterload()
