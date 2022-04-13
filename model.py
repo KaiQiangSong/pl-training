@@ -6,8 +6,8 @@ from deepspeed.ops.adam import FusedAdam
 class Summarizer(pl.LightningModule):
     def __init__(self, config):
         super().__init__()
-        self.config = config.model_name
-        self.model = AutoModelForSeq2SeqLM.from_pretrained(config.model_name)
+        self.config = config
+        self.model = AutoModelForSeq2SeqLM.from_pretrained(config.model)
 
     def training_step(self, batch_data, batch_idx):
         encoder_input_ids, decoder_input_ids, labels = batch_data

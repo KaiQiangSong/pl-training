@@ -14,7 +14,7 @@ def argLoader():
     
     parser.add_argument("--accelerator", type=str, default="gpu")
     parser.add_argument("--strategy", type=str, default="deepspeed_stage_2")
-    parser.add_argument("--n_gpu", type=int, default=2)
+    parser.add_argument("--n_gpus", type=int, default=2)
 
     parser.add_argument("--model", type=str, default="facebook/bart-large")
     parser.add_argument("--data_path", type=str, default="../../sumData/cnn-dailymail")
@@ -66,7 +66,7 @@ if __name__ == "__main__":
             callbacks=[checkpoint_callback],
             terminate_on_nan=True,
             sync_batchnorm=True,
-            val_check_intervals= 1.0 / config.valid_per_epoch,
+            val_check_interval= 1.0 / config.valid_per_epoch,
             log_gpu_memory="all",
             profiler="simple",
         )
