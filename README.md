@@ -1,6 +1,6 @@
 # pl-training
 
-# Environment
+## Environment
 ```shell
 # Conda Env
 conda create -n cuda11.1-torch1.9-pl1.5.10 python==3.9
@@ -17,4 +17,9 @@ pip install deepspeed==0.6.0
 pip install fairscale==0.4.5
 # Pytorch-Lightning
 pip install pytorch-lightning==1.5.10
+```
+
+## Run Script
+```shell
+python run.py --do_train --build_from_strach --n_gpus 8
 ```
