@@ -7,7 +7,6 @@ class Summarizer(pl.LightningModule):
     def __init__(self, config):
         super().__init__()
         self.config = config.model_name
-        self.tokenizer = AutoTokenizer.from_pretrained(config.model_name)
         self.model = AutoModelForSeq2SeqLM.from_pretrained(config.model_name)
 
     def training_step(self, batch_data, batch_idx):
