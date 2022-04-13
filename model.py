@@ -1,7 +1,7 @@
 import torch
 import pytorch_lightning as pl
 from transformers import AutoModelForSeq2SeqLM
-from deepspeed.ops.adam import FusedAdam
+from deepspeed.ops.adam import FusedAdam, DeepSpeedCPUAdam
 from transformers.optimization import get_linear_schedule_with_warmup
 
 class Summarizer(pl.LightningModule):
@@ -54,7 +54,8 @@ class Summarizer(pl.LightningModule):
                 "weight_decay": 0.0
             },
         ]
-        optimizer = FusedAdam(optimizer_grouped_parameters, lr=self.config.learning_rate, eps=self.config.adam_epsilon)
+        #optimizer = FusedAdam(optimizer_grouped_parameters, lr=self.config.learning_rate, eps=self.config.adam_epsilon)
+        optimizer = DeepSpeedCPUAdam(optimizer_grouped_parameters, lr=self.config.learning_rate, eps=self.config.adam_epsilon)
 
         scheduler = get_linear_schedule_with_warmup(
             optimizer, num_warmup_steps=self.config.warmup_steps, num_training_steps=self.config.train_steps
