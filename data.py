@@ -118,9 +118,9 @@ def data2batch(data):
 def prepare_data(batch, config):
     batch_src, batch_tgt = batch
     l_src = max([inst.size(-1) for inst in batch_src])
-    batch_src_pt = torch.stack([pad(inst, (0, l_src - inst.size(-1)), value=torch.LongTensor(config.pad)) for inst in batch_src])
+    batch_src_pt = torch.cat([pad(inst, (0, l_src - inst.size(-1)), value=config.pad) for inst in batch_src], 0)
     l_tgt = max([inst.size(-1) for inst in batch_tgt])
-    batch_tgt_pt = torch.stack([pad(inst, (0, l_tgt - inst.size(-1)), value=torch.LongTensor(config.pad)) for inst in batch_src])
+    batch_tgt_pt = torch.cat([pad(inst, (0, l_tgt - inst.size(-1)), value=config.pad) for inst in batch_src], 0)
     return batch_src_pt, batch_tgt_pt[:, :-1], batch_tgt_pt[:, 1:]
 
 

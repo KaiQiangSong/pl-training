@@ -17,7 +17,7 @@ def argLoader():
     parser.add_argument("--strategy", type=str, default="deepspeed_stage_2")
     parser.add_argument("--n_gpus", type=int, default=2)
     parser.add_argument("--num_workers", type=int, default=4)
-    parser.add_argument("--batch_size_per_gpu", type=int, default=8)
+    parser.add_argument("--batch_size_per_gpu", type=int, default=1)
 
 
 
@@ -75,7 +75,6 @@ if __name__ == "__main__":
             terminate_on_nan=True,
             sync_batchnorm=True,
             val_check_interval= 1.0 / config.valid_per_epoch,
-            log_gpu_memory="all",
             profiler="simple",
         )
 

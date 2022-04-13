@@ -1,6 +1,6 @@
 import torch
 import pytorch_lightning as pl
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from transformers import AutoModelForSeq2SeqLM
 from deepspeed.ops.adam import FusedAdam
 from transformers.optimization import get_linear_schedule_with_warmup
 
@@ -16,6 +16,7 @@ class Summarizer(pl.LightningModule):
         loss = self.model(
             input_ids=encoder_input_ids,
             decoder_input_ids=decoder_input_ids,
+            labels=labels,
         )["loss"] / norm
 
         self.log("train_loss", loss, on_step=True, on_epoch=True, sync_dist=True, logger=True)
@@ -28,6 +29,7 @@ class Summarizer(pl.LightningModule):
         loss = self.model(
             input_ids=encoder_input_ids,
             decoder_input_ids=decoder_input_ids,
+            labels=labels,
         )["loss"]
         return float(loss), float(norm)
 
