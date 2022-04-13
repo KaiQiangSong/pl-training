@@ -12,7 +12,7 @@ from torch.nn.functional import pad
 from pytorch_lightning import LightningDataModule
 from transformers import AutoTokenizer
 
-from .utils import (
+from utils import (
     saveToPKL,
     loadFromPKL,
 )

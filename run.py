@@ -4,8 +4,8 @@ import pytorch_lightning as pl
 from argparse import ArgumentParser
 from pytorch_lightning.callbacks.model_checkpoint import ModelCheckpoint
 
-from .data import CNNDailyMail_Module
-from .model import Summarizer
+from data import CNNDailyMail_Module
+from model import Summarizer
 
 
 def argLoader():
@@ -18,6 +18,7 @@ def argLoader():
 
     parser.add_argument("--model", type=str, default="facebook/bart-large")
     parser.add_argument("--data_path", type=str, default="../../sumData/cnn-dailymail")
+    parser.add_argument("--build_from_strach", action="store_true", help="Whether or not build dataset from strach")
     parser.add_argument("--model_path", type=str, default="./model")
 
 
