@@ -34,7 +34,7 @@ def argLoader():
 
     parser.add_argument("--max_epochs", type=int, default=5)
     parser.add_argument("--num_train_instances", type=int, default=287113)
-    parser.add_argument("--warmup_steps", type=int, default=1795)
+    parser.add_argument("--warmup_rates", type=float, default=0.05)
     parser.add_argument("--valid_per_epoch", type=int, default=5)
 
     args = parser.parse_args()
@@ -42,6 +42,8 @@ def argLoader():
 
     args.train_steps = \
         int(math.ceil(float(args.num_train_instances / (args.batch_size_per_gpu * args.n_gpus))) * args.max_epochs)
+
+    args.warmup_steps = int(args.warmup_rates * args.train_steps)
 
     assert args.load_from_cache != args.build_from_strach
 
@@ -65,12 +67,12 @@ if __name__ == "__main__":
             save_weights_only=True,
         )
 
-        """
+
         if config.strategy == "deepspeed_stage_2_offload":
             config.strategy = DeepSpeedStrategy(
                 offload_optimizer=True, allgather_bucket_size=5e8, reduce_bucket_size=5e8
             )
-        """
+
 
         trainer = pl.Trainer(
             default_root_dir=config.model_path,

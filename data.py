@@ -166,7 +166,7 @@ class CNNDailyMail_Module(LightningDataModule):
         return DataLoader(
             dataset=self.validDataset,
             batch_size=self.config.batch_size_per_gpu,
-            shuffle=True,
+            shuffle=False,
             num_workers=self.config.num_workers,
             collate_fn=self.collator,
             pin_memory=True,
