@@ -80,7 +80,6 @@ if __name__ == "__main__":
             precision=16,
             max_epochs=config.max_epochs,
             callbacks=[checkpoint_callback],
-            terminate_on_nan=True,
             sync_batchnorm=True,
             val_check_interval=1.0 / config.valid_per_epoch,
             profiler="simple",
