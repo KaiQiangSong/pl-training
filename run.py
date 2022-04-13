@@ -23,7 +23,7 @@ def argLoader():
 
     parser.add_argument("--model", type=str, default="facebook/bart-large")
     parser.add_argument("--data_path", type=str, default="../../sumData/cnn_dailymail")
-    parser.add_argument("--input_limit", type=int, default=1024)
+    parser.add_argument("--input_limit", type=int, default=512)
     parser.add_argument("--output_limit", type=int, default=128)
     parser.add_argument("--build_from_strach", action="store_true", help="Whether or not build dataset from strach")
     parser.add_argument("--load_from_cache", action="store_true", help="Whether or not load from cache file")
