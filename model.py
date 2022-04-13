@@ -2,6 +2,7 @@ import torch
 import pytorch_lightning as pl
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 from deepspeed.ops.adam import FusedAdam
+from transformers.optimization import get_linear_schedule_with_warmup
 
 class Summarizer(pl.LightningModule):
     def __init__(self, config):
@@ -52,3 +53,12 @@ class Summarizer(pl.LightningModule):
             },
         ]
         optimizer = FusedAdam(optimizer_grouped_parameters, lr=self.config.learning_rate, eps=self.config.adam_epsilon)
+
+        scheduler = get_linear_schedule_with_warmup(
+            optimizer, num_warmup_steps=self.config.warmup_steps, num_training_steps=self.config.train_steps
+        )
+
+        return {
+            "optimizer": optimizer,
+            "lr_scheduler": scheduler,
+        }

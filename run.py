@@ -11,10 +11,14 @@ from model import Summarizer
 def argLoader():
     parser = ArgumentParser()
     parser.add_argument("--do_train", action="store_true", help="train the model")
+    parser.add_argument("--mini", action="store_true", help="Only Load 500 instances")
     
     parser.add_argument("--accelerator", type=str, default="gpu")
     parser.add_argument("--strategy", type=str, default="deepspeed_stage_2")
     parser.add_argument("--n_gpus", type=int, default=2)
+    parser.add_argument("--batch_size_per_gpu", type=int, default=8)
+
+
 
     parser.add_argument("--model", type=str, default="facebook/bart-large")
     parser.add_argument("--data_path", type=str, default="../../sumData/cnn_dailymail")

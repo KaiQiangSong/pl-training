@@ -77,7 +77,9 @@ class CNNDailymail(BasicDataset):
     def load_raw(self):
         inputFile = open(join(self.path, self.split + ".jsonl"), "r")
         data = []
-        for line in inputFile:
+        for i, line in enumerate(inputFile):
+            if self.config.mini and i >= 500:
+                break
             data_i = json.loads(line)
             # List[str]
             src_sents = data_i["inputs"]
