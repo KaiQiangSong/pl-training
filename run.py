@@ -41,7 +41,7 @@ def argLoader():
     args.pad = 1
 
     args.train_steps = \
-        int(math.ceil(float(args.num_train_instances / (args.batch_sizer_per_gpu * args.n_gpus))) * args.max_epochs)
+        int(math.ceil(float(args.num_train_instances / (args.batch_size_per_gpu * args.n_gpus))) * args.max_epochs)
 
     assert args.load_from_cache != args.build_from_strach
 
