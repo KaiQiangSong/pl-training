@@ -15,9 +15,9 @@ def argLoader():
     
     parser.add_argument("--accelerator", type=str, default="gpu")
     parser.add_argument("--strategy", type=str, default="deepspeed_stage_2")
-    parser.add_argument("--n_gpus", type=int, default=2)
+    parser.add_argument("--n_gpus", type=int, default=8)
     parser.add_argument("--num_workers", type=int, default=4)
-    parser.add_argument("--batch_size_per_gpu", type=int, default=1)
+    parser.add_argument("--batch_size_per_gpu", type=int, default=5)
 
     parser.add_argument("--model", type=str, default="facebook/bart-large")
     parser.add_argument("--data_path", type=str, default="../../sumData/cnn_dailymail")
