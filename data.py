@@ -162,7 +162,7 @@ class CNNDailyMail_Module(LightningDataModule):
             drop_last=True,
         )
 
-    def valid_dataloader(self):
+    def val_dataloader(self):
         return DataLoader(
             dataset=self.validDataset,
             batch_size=self.config.batch_size_per_gpu,
