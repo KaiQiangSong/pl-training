@@ -54,8 +54,20 @@ class Summarizer(pl.LightningModule):
                 "weight_decay": 0.0
             },
         ]
-        #optimizer = FusedAdam(optimizer_grouped_parameters, lr=self.config.learning_rate, eps=self.config.adam_epsilon)
-        optimizer = DeepSpeedCPUAdam(optimizer_grouped_parameters, lr=self.config.learning_rate, eps=self.config.adam_epsilon)
+
+        if "offload" in self.config.strategy:
+            optimizer = DeepSpeedCPUAdam(
+                optimizer_grouped_parameters,
+                lr=self.config.learning_rate,
+                eps=self.config.adam_epsilon
+            )
+        else:
+            optimizer = FusedAdam(
+                optimizer_grouped_parameters,
+                lr=self.config.learning_rate,
+                eps=self.config.adam_epsilon
+            )
+
 
         scheduler = get_linear_schedule_with_warmup(
             optimizer, num_warmup_steps=self.config.warmup_steps, num_training_steps=self.config.train_steps
