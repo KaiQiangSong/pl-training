@@ -1,6 +1,7 @@
 # pl-training
-## Updates
-  We need pl1.6 to support manual "allgather_bucket_size" of DeepSpeed ZeRO Stage 2 Offloading
+## Hints
+  + We need pl1.6 to support manual "allgather_bucket_size" of DeepSpeed ZeRO Stage 2 Offloading
+  + Please use ``DeepSpeedCPUAdam`` when "offloading", otherwise please use ``FuseAdam``
 ## Environment
 ```shell
 # Conda Env
