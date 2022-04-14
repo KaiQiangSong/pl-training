@@ -1,5 +1,6 @@
 # pl-training
 ## Hints
+  + Bug reported in recent deepspeed version for stage 3, so a safe version is ``deepspeed==0.5.8``
   + We need pl1.6 to support manual "allgather_bucket_size" of DeepSpeed ZeRO Stage 2 Offloading
   + Please use ``DeepSpeedCPUAdam`` when "offloading", otherwise please use ``FuseAdam``
 ## Environment
@@ -14,7 +15,7 @@ git clone https://github.com/NVIDIA/apex
 cd apex
 pip install -v --disable-pip-version-check --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./
 # DeepSpeed
-pip install deepspeed==0.6.0
+pip install deepspeed==0.5.8
 # FariScale
 pip install fairscale==0.4.5
 # Pytorch-Lightning
