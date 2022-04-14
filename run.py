@@ -69,18 +69,18 @@ if __name__ == "__main__":
             save_weights_only=True,
         )
 
-
+        """
         if config.strategy == "deepspeed_stage_2_offload":
             customized_strategy = DeepSpeedStrategy(
                 offload_optimizer=True, allgather_bucket_size=5e8, reduce_bucket_size=5e8
             )
-
+        """
 
         trainer = pl.Trainer(
             default_root_dir=config.model_path,
             accelerator=config.accelerator,
             devices=config.n_gpus,
-            strategy=config.strategy if "offload" not in config.strategy else customized_strategy,
+            strategy=config.strategy,
             precision=16,
             max_epochs=config.max_epochs,
             callbacks=[checkpoint_callback],
