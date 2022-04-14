@@ -12,12 +12,11 @@ class Summarizer(pl.LightningModule):
 
     def training_step(self, batch_data, batch_idx):
         encoder_input_ids, decoder_input_ids, labels = batch_data
-        norm = float((labels.data != self.config.pad).float().sum())
         loss = self.model(
             input_ids=encoder_input_ids,
             decoder_input_ids=decoder_input_ids,
             labels=labels,
-        )["loss"] / norm
+        )["loss"]
 
         self.log("train_loss", loss, on_step=True, on_epoch=True, sync_dist=True, logger=True)
         return loss
@@ -31,7 +30,7 @@ class Summarizer(pl.LightningModule):
             decoder_input_ids=decoder_input_ids,
             labels=labels,
         )["loss"]
-        return float(loss), float(norm)
+        return float(loss) * float(norm), float(norm)
 
     def validation_epoch_end(self, batch_outputs):
         total_loss = 0
