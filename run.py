@@ -71,7 +71,7 @@ if __name__ == "__main__":
 
 
         if config.strategy == "deepspeed_stage_2_offload":
-            config.strategy = DeepSpeedStrategy(
+            customized_strategy = DeepSpeedStrategy(
                 offload_optimizer=True, allgather_bucket_size=5e8, reduce_bucket_size=5e8
             )
 
@@ -80,7 +80,7 @@ if __name__ == "__main__":
             default_root_dir=config.model_path,
             accelerator=config.accelerator,
             devices=config.n_gpus,
-            strategy=config.strategy,
+            strategy=config.strategy if "offload" not in config.strategy else customized_strategy,
             precision=16,
             max_epochs=config.max_epochs,
             callbacks=[checkpoint_callback],
